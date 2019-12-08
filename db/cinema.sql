@@ -17,5 +17,5 @@ CREATE TABLE customers (
 CREATE TABLE tickets (
   id SERIAL PRIMARY KEY,
   film_id INT NOT NULL REFERENCES films(id) ON DELETE CASCADE,
-  customers_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE
+  customer_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE
 );
