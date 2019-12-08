@@ -2,7 +2,7 @@ require_relative("../db/sql_runner")
 
 class Ticket
 
-attr_reader :id, :customer_id, :screening_id
+  attr_reader :id, :customer_id, :screening_id
 
   def initialize( options )
     @id = options['id'] if options['id']
@@ -33,14 +33,17 @@ attr_reader :id, :customer_id, :screening_id
   #   SqlRunner.run(sql, values)
   # end
 
+  def get_film()
+    Screening.find(@screening_id).get_film()
+  end
 
-
-  # def self.sell(customer, screening_time)
-  #   return if film.find() == nil
-  #   return if customer.sufficient_funds?(film.price) == false
-  #   customer.decrease_funds(film.price)
-  #   ticket = Ticket.new({"film_id" => film.id, "customer_id" => customer.id})
-  #   ticket.save
-  #   return ticket
-  # end
+  def self.sell(customer, screening)
+    film = screening.get_film
+    return if film == nil
+    return if customer.sufficient_funds?(film.price) == false
+    customer.decrease_funds(film.price)
+    ticket = Ticket.new({"customer_id" => customer.id, "screening_id" => screening.id})
+    ticket.save
+    return ticket
+  end
 end

@@ -34,17 +34,18 @@ class Screening
     SqlRunner.run(sql, values)
   end
 
-  # def get_films()
-  #   sql = "SELECT * FROM screening WHERE id = $1"
-  #
-  # end
+  def get_film()
+    Film.find(@film_id)
+  end
 
-  # find all screening for a film
-  # def self.find()
-  #   sql = "SELECT * FROM screenings WHERE id = $1"
-  #   values = [@id]
-  #   result = SqlRunner.run(sql, values).first
-  #   return result == nil ?  nil : Film.new(result)
-  # end
+  # find the screening given a screening id
+  def self.find(id)
+    sql = "SELECT * FROM screenings WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values).first
+    return result == nil ?  nil : self.new(result)
+  end
+
+
 
 end

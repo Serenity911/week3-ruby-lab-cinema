@@ -57,9 +57,9 @@ class Film
     # return result
   end
 
-  def find()
+  def self.find(id)
     sql = "SELECT * FROM films WHERE id = $1"
-    values = [@id]
+    values = [id]
     result = SqlRunner.run(sql, values).first
     return result == nil ?  nil : Film.new(result)
   end
