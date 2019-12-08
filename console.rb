@@ -11,6 +11,10 @@ film1 = Film.new({"title" => "The Lord of the Rings", "price" => 10})
 film1.save()
 film2 = Film.new({"title" => "The Hobbit", "price" => 7})
 film2.save()
+film3 = Film.new({"title" => "Aladdin", "price" => 5})
+
+film4 = Film.new({"title" => "Zoolander", "price" => 15})
+film4.save()
 
 customer1 = Customer.new({"name" => "John Doe", "funds" => 10000})
 customer1.save()

@@ -33,4 +33,13 @@ attr_reader :id, :customer_id, :film_id
   #   SqlRunner.run(sql, values)
   # end
 
+
+  def self.sell(customer, film)
+    return if film.find() == nil
+    return if customer.sufficient_funds?(film.price) == false
+    customer.decrease_funds(film.price)
+    ticket = Ticket.new({"film_id" => film.id, "customer_id" => customer.id})
+    ticket.save
+    return ticket
+  end
 end

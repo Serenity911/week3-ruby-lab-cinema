@@ -43,4 +43,22 @@ class Customer
     result = SqlRunner.run(sql, values).map{|film| Film.new(film)}
     return result
   end
+
+  def get_tickets()
+    sql = "SELECT * FROM tickets WHERE customer_id =$1"
+    values = [@id]
+    SqlRunner.run(sql, values).ntuples
+  end
+
+
+  def decrease_funds(money)
+    return if sufficient_funds?(money) == false
+    @funds -= money
+  end
+
+  def sufficient_funds?(money)
+    return false if @funds < money
+    return true
+  end
+
 end

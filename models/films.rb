@@ -40,8 +40,16 @@ class Film
     ON tickets.customer_id = customers.id
     WHERE tickets.film_id = $1"
     values = [@id]
-    result = SqlRunner.run(sql, values).map{|customer| Customer.new(customer)}
-    return result
+    # result = SqlRunner.run(sql, values).map{|customer| Customer.new(customer)}
+    # return result
+    SqlRunner.run(sql, values).ntuples
+  end
+
+  def find()
+    sql = "SELECT * FROM films WHERE id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values).first
+    return result == nil ?  nil : Film.new(result)
   end
 
 end
