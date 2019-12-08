@@ -33,7 +33,6 @@ screening2.save
 screening3 = Screening.new({"screening_time" => "21:00 GMT", "film_id" => film4.id})
 screening3.save
 
-#TO DO ADD SCREENING TO TICKETS
 ticket1 = Ticket.new({"customer_id" => customer1.id, "screening_id" => screening1.id})
 ticket1.save()
 
@@ -46,5 +45,6 @@ ticket3.save()
 ticket4 = Ticket.new({"customer_id" => customer2.id, "screening_id" => screening2.id})
 ticket4.save()
 
+# p film1.get_most_popular_time()
 binding.pry
 nil

@@ -80,8 +80,11 @@ class Film
       screening_counts[screening_id] = 0 if !screening_counts.has_key?(screening_id)
       screening_counts[screening_id] = screening_counts[screening_id]+1
     end
+    result = screening_counts.sort_by {|key, value| -value}.first[0]
 
-    screening_counts.sort_by {|key, value| -value}.first
+    Screening.find(result)
+
+
   end
 
 end
