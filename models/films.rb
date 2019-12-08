@@ -38,11 +38,23 @@ class Film
     sql = "SELECT customers.* FROM customers
     INNER JOIN tickets
     ON tickets.customer_id = customers.id
-    WHERE tickets.film_id = $1"
+    INNER JOIN screenings
+    ON screenings.id = tickets.screening_id
+    WHERE screenings.film_id = $1"
     values = [@id]
+    result = SqlRunner.run(sql, values).map{|customer| Customer.new(customer)}
+    return result
+
+    # WHICH IS THE BEST WAY OF WRITING IT?
+    # sql = "SELECT customers.* FROM screenings
+    # INNER JOIN tickets
+    # ON screenings.id = tickets.screening_id
+    # INNER JOIN customers
+    # ON tickets.customer_id = customers.id
+    # WHERE screenings.film_id = $1"
+    # values = [@id]
     # result = SqlRunner.run(sql, values).map{|customer| Customer.new(customer)}
     # return result
-    SqlRunner.run(sql, values).ntuples
   end
 
   def find()

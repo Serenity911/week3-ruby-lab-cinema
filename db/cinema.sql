@@ -1,6 +1,7 @@
-DROP TABLE tickets;
-DROP TABLE customers;
-DROP TABLE films;
+DROP TABLE IF EXISTS tickets;
+DROP TABLE IF EXISTS screenings;
+DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS films;
 
 CREATE TABLE films (
   id SERIAL PRIMARY KEY,
@@ -14,8 +15,14 @@ CREATE TABLE customers (
   funds INT
 );
 
+CREATE TABLE screenings (
+  id SERIAL PRIMARY KEY,
+  screening_time VARCHAR(255) NOT NULL,
+  film_id INT NOT NULL REFERENCES films(id) ON DELETE CASCADE
+);
+
 CREATE TABLE tickets (
   id SERIAL PRIMARY KEY,
-  film_id INT NOT NULL REFERENCES films(id) ON DELETE CASCADE,
-  customer_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE
+  customer_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  screening_id INT NOT NULL REFERENCES screenings(id) ON DELETE CASCADE
 );
