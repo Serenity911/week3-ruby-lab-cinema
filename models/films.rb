@@ -64,4 +64,24 @@ class Film
     return result == nil ?  nil : Film.new(result)
   end
 
+  def get_most_popular_time()
+    sql = "SELECT tickets.* FROM tickets
+    INNER JOIN screenings
+    ON screenings.id = tickets.screening_id
+    INNER JOIN films
+    ON films.id = screenings.film_id
+    WHERE films.id = $1
+    "
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    screening_counts = {}
+    for result in results
+      screening_id = result["screening_id"]
+      screening_counts[screening_id] = 0 if !screening_counts.has_key?(screening_id)
+      screening_counts[screening_id] = screening_counts[screening_id]+1
+    end
+
+    screening_counts.sort_by {|key, value| -value}.first
+  end
+
 end
